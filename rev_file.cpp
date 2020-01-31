@@ -1,3 +1,7 @@
+// Cody Malcolm 100753739
+// January 31, 2020
+// CSCI 1061 - In-Lecture assignment #2
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -8,15 +12,12 @@ void freadnames(ifstream &, char * []);
 void fwritenames_reverse(ofstream &,char * []);
 void freenames(char * []);
 
-
 int main(int argc, char *argv[])
 {
-	char *list[100];
-    
-    if(argc != 3){
-    	cerr << "Number of argument is not correct!" << endl;
-    	return 1;
-    }
+	if(argc != 3){
+		cerr << "Number of argument is not correct!" << endl;
+		return 1;
+	}
 
 	ifstream fin(argv[1]);
 	if(fin.fail()){
@@ -30,14 +31,16 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
+	char *list[100];
+
 	freadnames(fin,list);
 	fwritenames_reverse(fout,list);
 	freenames(list);
-	
+
 	fin.close();
 	fout.close();
-	
-	return 0; 
+
+	return 0;
 }
 
 void freadnames(ifstream &f,char *list [])
@@ -46,10 +49,11 @@ void freadnames(ifstream &f,char *list [])
 
 	int i = 0;
 
-	// write a while loop to reads string form the file and put it in x till the end file
-		// inside the loop allocate the dynamic array for list[i]
-		// copy string in x to list[i] array
-		// increment i 
+	while (f>>x) {
+		list[i] = new char[strlen(x)+1];
+		strcpy(list[i], x);
+		i++;
+	}
 
 	list[i] = nullptr;  // We put the null to the last pointer to mark that the last element in list
 }
@@ -61,7 +65,7 @@ void fwritenames_reverse(ofstream &f,char *list [])
 
 	for(int j = i-1; j >= 0 ; --j)
 	{
-		// your code is here
+		f << list[j] << endl;
 	}
 }
 void freenames(char *list [])
@@ -71,7 +75,3 @@ void freenames(char *list [])
 		delete [] list[i];;
 	}
 }
-
-
-
-
